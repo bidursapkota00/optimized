@@ -6,6 +6,6 @@
     <h2>Add Notes</h2>
     <form action="{% url 'notes:add' %}" method="post">
         {% csrf_token %} {{ form.as_p }}
-        <input type="submit" value="Submit" />
+        <input name="submit" type="submit" value="Submit" />
     </form>
 {% endblock content %}

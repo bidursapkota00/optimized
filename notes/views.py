@@ -40,7 +40,7 @@ def edit_note(request, note_id):
             'description': note.description
         })
 
-    return render(request, 'notes/edit.html', {'form': form, 'note': note})
+    return render(request, 'notes/edit.html', {'form': form})
 
 
 # DELETE - Delete
