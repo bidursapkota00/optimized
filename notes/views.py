@@ -1,3 +1,5 @@
+from django.views.decorators.csrf import csrf_exempt
+from django.db import connection
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import Note
@@ -16,6 +18,31 @@ def add_note(request):
         form = NoteForm(request.POST)
         if form.is_valid():
             form.create(form.cleaned_data)
+            messages.success(request, 'Data added successfully!')
+            return redirect('notes:index')
+    else:
+        form = NoteForm()
+
+    return render(request, 'notes/add.html', {'form': form})
+
+
+# CREATE - Add new note  (DEMO version - deliberately vulnerable)
+@csrf_exempt
+def add_note_sql_injection(request):
+    if request.method == 'POST':
+        form = NoteForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data['title']
+            desc = form.cleaned_data['description']
+
+            sql = f"""
+            INSERT INTO notes_note (title, description)
+            VALUES ('{title}', '{desc}');
+            """
+
+            with connection.cursor() as cursor:
+                cursor.executescript(sql)
+
             messages.success(request, 'Data added successfully!')
             return redirect('notes:index')
     else:

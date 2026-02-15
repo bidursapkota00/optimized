@@ -12,7 +12,8 @@
         </tr>
         {% for note in notes %}
             <tr>
-                <td>{{ note.title }}</td>
+                <td>{{ note.title|title }}</td>
+                {% comment %} <td>{{ note.description|safe }}</td> {% endcomment %}
                 <td>{{ note.description }}</td>
                 <td>
                     <a href="{% url 'notes:edit' note.id %}">Edit</a>
