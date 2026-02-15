@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.db import connection
 from django.shortcuts import render, redirect, get_object_or_404
@@ -28,6 +29,7 @@ def add_note(request):
 
 # CREATE - Add new note  (DEMO version - deliberately vulnerable)
 @csrf_exempt
+@login_required
 def add_note_sql_injection(request):
     if request.method == 'POST':
         form = NoteForm(request.POST)
